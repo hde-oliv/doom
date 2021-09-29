@@ -19,9 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "D2 Coding" :size 18 :weight 'Regular)
-      doom-variable-pitch-font (font-spec :family "D2 Coding" :size 17)
- doom-big-font (font-spec :family "D2 Coding" :size 30))
+(setq doom-font (font-spec :family "Hack" :size 16 :weight 'Regular)
+      doom-variable-pitch-font (font-spec :family "Hack" :size 15)
+ doom-big-font (font-spec :family "Hack" :size 28))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -58,9 +58,9 @@
       evil-vsplit-window-right t)
 
 ;; Banner
-;; (setq! +doom-dashboard-functions '(
-;;         doom-dashboard-widget-banner
-;;         doom-dashboard-widget-footer))
+(setq! +doom-dashboard-functions '(
+       doom-dashboard-widget-banner
+       doom-dashboard-widget-footer))
 (custom-set-faces!
   '(doom-dashboard-banner :weight regular)) ;; Fixing the DOOM ASCII
 
