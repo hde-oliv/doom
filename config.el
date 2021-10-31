@@ -20,8 +20,8 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Hack" :size 16 :weight 'Regular)
-      doom-variable-pitch-font (font-spec :family "Hack" :size 15)
- doom-big-font (font-spec :family "Hack" :size 28))
+      doom-variable-pitch-font (font-spec :family "Hack" :size 16)
+ doom-big-font (font-spec :family "Hack" :size 27))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -32,8 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
-(setq doom-gruvbox-dark-variant t)
+(setq doom-theme 'doom-badger)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -85,7 +84,6 @@
 ;; Crystal
 (use-package! lsp-mode
     :commands lsp
-    :ensure t
     :diminish lsp-mode
     :hook
     (crystal-mode . lsp)
@@ -95,7 +93,6 @@
 ;; Kotlin
 (use-package! lsp-mode
     :commands lsp
-    :ensure t
     :diminish lsp-mode
     :hook
     (kotlin-mode . lsp)
@@ -108,6 +105,31 @@
 ;; Treemacs
 (after! projectile (setq projectile-project-root-files-bottom-up
                          (remove ".git" projectile-project-root-files-bottom-up)))
+(setq doom-themes-treemacs-theme "doom-colors")
+
+;; Fringe
+(setq fringe-mode 'minimal)
+(doom-themes-visual-bell-config)
+
+;; Modeline
+(setq! doom-modeline-height 35)
+(setq! doom-modeline-buffer-file-name-style 'truncate-except-project)
+(setq! doom-modeline-major-mode-icon t)
+(setq! doom-modeline-indent-info t)
+
+;; Garbage Collection
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6)
+
+(setq comp-async-report-warnings-errors nil)
+(setq gc-cons-threshold (* 2 1000 1000))
+
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            c-mode
+            latex-mode))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
