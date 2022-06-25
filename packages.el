@@ -51,3 +51,6 @@
 
 (package! elcord
   :recipe (:host github :repo "hde-oliv/elcord"))
+
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))

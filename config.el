@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "FuraCode Nerd Font" :size 15 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "FuraCode Nerd Font" :size 14))
+(setq doom-font (font-spec :family "monospace" :size 15 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "monospace" :size 14))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -116,6 +116,38 @@
             tex-mode         ; latexindent is broken
             c-mode
             latex-mode))
+
+(setq-default c-basic-offset 4
+              tab-width 4
+              indent-tabs-mode t)
+
+;; Set hard tabs on C and C++ files
+(setq-hook! '(c++-mode-hook) indent-tabs-mode t
+            c-basic-offset 4
+            tab-width 4
+	    backward-delete-function nil
+            c-default-style "user"
+	    )
+
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-hungry-state 1)))
+
+;; accept completion from copilot and fallback to company
+(defun my-tab ()
+  (interactive)
+  (or (copilot-accept-completion)
+      (company-indent-or-complete-common nil)))
+
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map company-active-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)
+         :map company-mode-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)))
 
 ;; (use-package! lsp-mode
 ;;     :commands lsp
